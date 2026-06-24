@@ -31,7 +31,7 @@ const interviewReportSchema = z.object({
 
 const FALLBACK_MODELS = [
     "gemini-2.5-flash",
-    "gemini-3.5-flash",
+    "gemini-2.5-flash-lite",
 ]
 
 const MAX_RETRIES = 3
@@ -127,6 +127,7 @@ async function callGemini(model, resume, selfDescription, jobDescription) {
         throw new Error("Gemini returned invalid interview report structure")
     }
 
+    console.log(response.text);
     return result.data
 }
 
