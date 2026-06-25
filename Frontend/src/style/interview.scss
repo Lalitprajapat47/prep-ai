@@ -1,3 +1,4 @@
+@use "sass:color";
 // ── Shared Variables (mirrors home.scss theme) ────────────────────────────────
 $bg-page: #0d1117;
 $bg-card: #161b22;
@@ -56,6 +57,7 @@ $severity-low: #3fb950;
 .interview-nav {
   width: 220px;
   flex-shrink: 0;
+  justify-content: space-between;
   padding: 1.75rem 1rem;
   display: flex;
   flex-direction: column;
