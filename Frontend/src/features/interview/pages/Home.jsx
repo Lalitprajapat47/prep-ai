@@ -9,9 +9,19 @@ const Home = () => {
     console.log("REPORTS => ", reports)
     const [jobDescription, setJobDescription] = useState("")
     const [selfDescription, setSelfDescription] = useState("")
+    const [resumeName, setResumeName] = useState("")
     const resumeInputRef = useRef()
 
     const navigate = useNavigate()
+
+    const handleResumeChange = (event) => {
+        const file = event.target.files?.[0]
+        if (file) {
+            setResumeName(file.name)
+        } else {
+            setResumeName("")
+        }
+    }
 
     const handleGenerateReport = async () => {
         const resumeFile = resumeInputRef.current.files[0]
@@ -91,8 +101,16 @@ const Home = () => {
                                 </span>
                                 <p className='dropzone__title'>Click to upload or drag &amp; drop</p>
                                 <p className='dropzone__subtitle'>PDF or DOCX (Max 5MB)</p>
-                                <input ref={resumeInputRef} hidden type='file' id='resume' name='resume' accept='.pdf,.docx' />
+                                <input ref={resumeInputRef} hidden type='file' id='resume' name='resume' accept='.pdf,.docx' onChange={handleResumeChange} />
                             </label>
+                            {resumeName && (
+                                <div className='uploaded-file-status'>
+                                    <span className='uploaded-file-status__icon'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+                                    </span>
+                                    <span className='uploaded-file-status__name'>Uploaded: {resumeName}</span>
+                                </div>
+                            )}
                         </div>
 
                         {/* OR Divider */}
