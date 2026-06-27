@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import "../../../style/home.scss"
 import { useInterview } from '../hooks/useInterview'
 import { useNavigate } from 'react-router'
+import InterviewLoader from './InterviewLoader'
 
 const Home = () => {
 
@@ -39,11 +40,7 @@ const Home = () => {
     }
 
     if (loading) {
-        return (
-            <main className='loading-screen'>
-                <h1>Loading your interview plan...</h1>
-            </main>
-        )
+        return <InterviewLoader />
     }
 
     return (

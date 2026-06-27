@@ -1,0 +1,210 @@
+@keyframes floatA   { from { transform:translate(0,0) scale(1); } to { transform:translate(40px,30px) scale(1.1); } }
+@keyframes floatB   { from { transform:translate(0,0); } to { transform:translate(-30px,20px) scale(1.08); } }
+@keyframes orbit1   { from { transform:rotate(0deg) translateX(54px) rotate(0deg); } to { transform:rotate(360deg) translateX(54px) rotate(-360deg); } }
+@keyframes orbit2   { from { transform:rotate(120deg) translateX(78px) rotate(-120deg); } to { transform:rotate(480deg) translateX(78px) rotate(-480deg); } }
+@keyframes orbit3   { from { transform:rotate(240deg) translateX(100px) rotate(-240deg); } to { transform:rotate(600deg) translateX(100px) rotate(-600deg); } }
+@keyframes ringRotate1 { to { transform:rotate(360deg); } }
+@keyframes ringRotate2 { to { transform:rotate(-360deg); } }
+@keyframes ringRotate3 { to { transform:rotate(360deg); } }
+@keyframes stepIn   { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+@keyframes logoPulse { 0%,100% { box-shadow:0 0 0 0 rgba(225,3,77,.4), 0 0 30px rgba(225,3,77,.3); } 50% { box-shadow:0 0 0 12px rgba(225,3,77,0), 0 0 40px rgba(225,3,77,.5); } }
+@keyframes barShimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+@keyframes glowPop  { 0%,100% { opacity:.6; transform:translateY(-50%) scale(1); } 50% { opacity:1; transform:translateY(-50%) scale(1.4); } }
+
+.il {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+
+    &__blob {
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        filter: blur(100px);
+        z-index: 0;
+
+        &--1 { width:600px; height:600px; background:radial-gradient(circle,rgba(225,3,77,.18),transparent 70%); top:-150px; right:-100px; animation:floatA 9s ease-in-out infinite alternate; }
+        &--2 { width:450px; height:450px; background:radial-gradient(circle,rgba(100,40,220,.13),transparent 70%); bottom:-100px; left:-80px; animation:floatB 12s ease-in-out infinite alternate; }
+    }
+
+    &__content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    /* ── Orbit system ── */
+    &__orbit-wrap {
+        position: relative;
+        width: 220px;
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__orbit {
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid transparent;
+
+        &--1 {
+            width: 120px; height: 120px;
+            border-color: rgba(225,3,77,.35);
+            animation: ringRotate1 3s linear infinite;
+            box-shadow: 0 0 10px rgba(225,3,77,.1) inset;
+        }
+        &--2 {
+            width: 168px; height: 168px;
+            border-color: rgba(225,3,77,.18);
+            border-style: dashed;
+            animation: ringRotate2 6s linear infinite;
+        }
+        &--3 {
+            width: 216px; height: 216px;
+            border-color: rgba(255,255,255,.06);
+            animation: ringRotate3 10s linear infinite;
+        }
+    }
+
+    /* Center logo */
+    &__logo {
+        position: relative;
+        z-index: 5;
+        width: 64px; height: 64px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #c0003a, #e1034d, #ff4d82);
+        display: flex; align-items: center; justify-content: center;
+        color: white;
+        animation: logoPulse 2.5s ease-in-out infinite;
+    }
+
+    /* Orbiting dots */
+    &__dot {
+        position: absolute;
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: #e1034d;
+        box-shadow: 0 0 8px rgba(225,3,77,.8);
+
+        &--1 { animation: orbit1 3s linear infinite; }
+        &--2 {
+            width: 6px; height: 6px;
+            background: #ff4d82;
+            animation: orbit2 6s linear infinite;
+        }
+        &--3 {
+            width: 5px; height: 5px;
+            background: rgba(255,255,255,.5);
+            animation: orbit3 10s linear infinite;
+        }
+    }
+
+    /* ── Step text ── */
+    &__step-wrap {
+        display: flex;
+        align-items: center;
+        gap: .65rem;
+        min-height: 36px;
+    }
+
+    &__step-icon {
+        font-size: 1.4rem;
+        animation: stepIn .4s ease both;
+        display: block;
+    }
+
+    &__step-text {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: rgba(255,255,255,.85);
+        letter-spacing: -.01em;
+        animation: stepIn .4s ease both;
+        animation-delay: .05s;
+    }
+
+    /* ── Progress bar ── */
+    &__bar-wrap {
+        display: flex;
+        align-items: center;
+        gap: .85rem;
+        width: 340px;
+        max-width: 90vw;
+    }
+
+    &__bar {
+        flex: 1;
+        height: 5px;
+        background: rgba(255,255,255,.07);
+        border-radius: 10px;
+        overflow: visible;
+        position: relative;
+    }
+
+    &__bar-fill {
+        height: 100%;
+        border-radius: 10px;
+        background: linear-gradient(90deg, #c0003a, #e1034d, #ff4d82, #e1034d, #c0003a);
+        background-size: 200% 100%;
+        animation: barShimmer 2s linear infinite;
+        transition: width .3s ease;
+        position: relative;
+    }
+
+    &__bar-glow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%) scale(1);
+        width: 12px; height: 12px;
+        border-radius: 50%;
+        background: #ff4d82;
+        box-shadow: 0 0 12px 4px rgba(225,3,77,.6);
+        margin-left: -6px;
+        animation: glowPop 1.5s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    &__bar-pct {
+        font-size: .8rem;
+        font-weight: 700;
+        color: rgba(255,255,255,.4);
+        min-width: 34px;
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* ── Step indicator dots ── */
+    &__steps {
+        display: flex;
+        gap: .4rem;
+    }
+
+    &__step-dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: rgba(255,255,255,.1);
+        transition: all .3s ease;
+
+        &--done {
+            background: rgba(225,3,77,.4);
+        }
+        &--active {
+            background: #e1034d;
+            box-shadow: 0 0 8px rgba(225,3,77,.7);
+            width: 18px;
+            border-radius: 3px;
+        }
+    }
+
+    &__hint {
+        font-size: .78rem;
+        color: rgba(255,255,255,.2);
+        letter-spacing: .02em;
+    }
+}

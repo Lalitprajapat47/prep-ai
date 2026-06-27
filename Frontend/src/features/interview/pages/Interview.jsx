@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import '../../../style/interview.scss'
 import { useInterview } from '../hooks/useInterview.js'
 import { useNavigate, useParams } from 'react-router'
-
-
+import InterviewLoader from './InterviewLoader'
 
 const NAV_ITEMS = [
     { id: 'technical', label: 'Technical Questions', icon: (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>) },
@@ -11,7 +10,6 @@ const NAV_ITEMS = [
     { id: 'roadmap', label: 'Road Map', icon: (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11" /></svg>) },
 ]
 
-// ── Sub-components ────────────────────────────────────────────────────────────
 const QuestionCard = ({ item, index }) => {
     const [ open, setOpen ] = useState(false)
     return (
@@ -56,7 +54,7 @@ const RoadMapDay = ({ day }) => (
     </div>
 )
 
-// ── Main Component ────────────────────────────────────────────────────────────
+// ── Main Component ─────────────────────────────────────────────────────────────
 const Interview = () => {
     const [ activeNav, setActiveNav ] = useState('technical')
     const { report, getReportById, loading, getResumePdf } = useInterview()
@@ -68,20 +66,14 @@ const Interview = () => {
         }
     }, [ interviewId ])
 
-
-
+    // ✅ Naya premium loader
     if (loading || !report) {
-        return (
-            <main className='loading-screen'>
-                <h1>Loading your interview plan...</h1>
-            </main>
-        )
+        return <InterviewLoader />
     }
 
     const scoreColor =
         report.matchScore >= 80 ? 'score--high' :
             report.matchScore >= 60 ? 'score--mid' : 'score--low'
-
 
     return (
         <div className='interview-page'>
@@ -161,8 +153,6 @@ const Interview = () => {
 
                 {/* ── Right Sidebar ── */}
                 <aside className='interview-sidebar'>
-
-                    {/* Match Score */}
                     <div className='match-score'>
                         <p className='match-score__label'>Match Score</p>
                         <div className={`match-score__ring ${scoreColor}`}>
@@ -174,7 +164,6 @@ const Interview = () => {
 
                     <div className='sidebar-divider' />
 
-                    {/* Skill Gaps */}
                     <div className='skill-gaps'>
                         <p className='skill-gaps__label'>Skill Gaps</p>
                         <div className='skill-gaps__list'>
@@ -185,7 +174,6 @@ const Interview = () => {
                             ))}
                         </div>
                     </div>
-
                 </aside>
             </div>
         </div>
