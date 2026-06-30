@@ -226,3 +226,15 @@
         &:hover { color: #ff4d82; }
     }
 }
+
+// ── 📱 Mobile Responsive ─────────────────────────────────────────────────────
+@media (max-width: 420px) {
+    .auth-card {
+        padding: 1.6rem 1.35rem;
+        border-radius: 18px;
+    }
+
+    .auth-card__title { font-size: 1.35rem; }
+
+    .auth-brand__name { font-size: 1rem; }
+}

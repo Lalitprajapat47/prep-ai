@@ -1,34 +1,40 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../auth.context";
-import { login, register, logout, getMe } from "../services/auth.api";
-
-
+import { login, register, logout } from "../services/auth.api";
+import toast from "react-hot-toast";
 
 export const useAuth = () => {
 
     const context = useContext(AuthContext)
     const { user, setUser, loading, setLoading } = context
 
-
     const handleLogin = async ({ email, password }) => {
         setLoading(true)
         try {
             const data = await login({ email, password })
-            setUser(data.user)
+            if (data && data.user) {
+                setUser(data.user)
+                toast.success(`Welcome back, ${data.user.username}!`)
+            }
         } catch (err) {
-
+            const msg = err?.response?.data?.message || "Invalid email or password"
+            toast.error(msg)
         } finally {
             setLoading(false)
         }
     }
 
-    const handleRegister = async ({ username, email, password }) => {
+    const handleRegistar = async ({ username, email, password }) => {
         setLoading(true)
         try {
             const data = await register({ username, email, password })
-            setUser(data.user)
+            if (data && data.user) {
+                setUser(data.user)
+                toast.success(`Welcome to PrepAI, ${data.user.username}!`)
+            }
         } catch (err) {
-
+            const msg = err?.response?.data?.message || "Registration failed. Try again."
+            toast.error(msg)
         } finally {
             setLoading(false)
         }
@@ -37,30 +43,15 @@ export const useAuth = () => {
     const handleLogout = async () => {
         setLoading(true)
         try {
-            const data = await logout()
+            await logout()
             setUser(null)
+            toast.success("Logged out successfully")
         } catch (err) {
-
+            toast.error("Something went wrong while logging out")
         } finally {
             setLoading(false)
         }
     }
 
-    useEffect(() => {
-
-        const getAndSetUser = async () => {
-            try {
-
-                const data = await getMe()
-                setUser(data.user)
-            } catch (err) { } finally {
-                setLoading(false)
-            }
-        }
-
-        getAndSetUser()
-
-    }, [])
-
-    return { user, loading, handleRegister, handleLogin, handleLogout }
+    return { user, loading, handleRegistar, handleLogin, handleLogout }
 }

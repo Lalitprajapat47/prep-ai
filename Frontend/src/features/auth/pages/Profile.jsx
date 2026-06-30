@@ -16,7 +16,7 @@ const Profile = () => {
         const fetchReports = async () => {
             try {
                 const data = await getAllInterviewReports()
-                setReports(data.reports || [])
+                setReports(data.interviewReports || [])
             } catch (err) {
                 setReports([])
             } finally {

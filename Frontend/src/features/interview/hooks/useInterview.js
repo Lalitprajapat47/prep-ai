@@ -1,8 +1,8 @@
-import { getAllInterviewReports, generateResumePdf ,generateInterviewReport, getInterviewReportById } from "../../auth/services/interview.api"
+import { getAllInterviewReports, generateResumePdf, generateInterviewReport, getInterviewReportById } from "../../auth/services/interview.api"
 import { useContext, useEffect } from "react"
 import { InterviewContext } from "../interview.context"
 import { useParams } from "react-router"
-
+import toast from "react-hot-toast"
 
 export const useInterview = () => {
 
@@ -17,6 +17,7 @@ export const useInterview = () => {
 
     const generateReport = async ({ jobDescription, selfDescription, resumeFile }) => {
         setLoading(true)
+        const loadingToast = toast.loading('Generating your interview strategy...')
 
         try {
             const response = await generateInterviewReport({
@@ -26,11 +27,13 @@ export const useInterview = () => {
             })
 
             setReport(response.interviewReport)
+            toast.success('Interview plan generated successfully!', { id: loadingToast })
 
             return response.interviewReport
 
         } catch (error) {
-            console.log(error)
+            const msg = error?.response?.data?.message || "Failed to generate plan. Please try again."
+            toast.error(msg, { id: loadingToast })
             return null
         } finally {
             setLoading(false)
@@ -39,6 +42,7 @@ export const useInterview = () => {
 
     const getResumePdf = async (interviewReportId) => {
         setLoading(true)
+        const loadingToast = toast.loading('Preparing your resume PDF...')
         let response = null
         try {
             response = await generateResumePdf({ interviewReportId })
@@ -48,9 +52,10 @@ export const useInterview = () => {
             link.setAttribute("download", `resume_${interviewReportId}.pdf`)
             document.body.appendChild(link)
             link.click()
+            toast.success('Resume downloaded!', { id: loadingToast })
         }
         catch (error) {
-            console.log(error)
+            toast.error('Failed to generate resume PDF', { id: loadingToast })
         } finally {
             setLoading(false)
         }
@@ -63,11 +68,11 @@ export const useInterview = () => {
             response = await getInterviewReportById(interviewId)
             setReport(response.interviewReport)
         } catch (error) {
-            console.log(error)
+            toast.error('Failed to load report')
         } finally {
             setLoading(false)
         }
-        return response.interviewReport
+        return response?.interviewReport
     }
 
     const getReports = async () => {
@@ -77,12 +82,12 @@ export const useInterview = () => {
             response = await getAllInterviewReports()
             setReports(response.interviewReports)
         } catch (error) {
-            console.log(error)
+            // silent fail — empty state handles this in UI
         } finally {
             setLoading(false)
         }
 
-        return response.interviewReports
+        return response?.interviewReports
     }
 
     useEffect(() => {
