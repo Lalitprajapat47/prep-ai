@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router'
 import { useAuth } from '../features/auth/hookes/useAuth'
-import './Navbar.scss'
+import './navbar.scss'
 
 const Navbar = () => {
     // ✅ SARE HOOKS PEHLE - koi bhi condition se pehle
