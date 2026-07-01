@@ -10,7 +10,7 @@ PrepAI analyzes a job description alongside your resume (or a quick self-descrip
 
 | Home | Interview Plan | Profile |
 |------|----------------|---------|
-| ![Home](./screenshots/home.png) | ![Interview](./screenshots/interview.png) | ![Profile](./screenshots/profile.png) |
+| ![Home](./docs/screenshots/home.png) | ![Interview](./docs/screenshots/interview.png) | ![Profile](./docs/screenshots/profile.png) |
 
 <br/>
 
