@@ -46,7 +46,7 @@ PrepAI analyzes a job description alongside your resume (or a quick self-descrip
 - JWT + bcrypt (authentication)
 - Multer (file uploads)
 - pdf-parse (resume parsing)
-- Puppeteer (PDF generation)
+- html-pdf-node (PDF generation)
 - Zod (AI response schema validation)
 
 **AI**
@@ -160,6 +160,13 @@ The app will be running at `http://localhost:5173`, connecting to the backend at
 This project is for personal/educational use. Feel free to fork and build on it.
 
 <br/>
+
+
+# PrepAI
+
+🔗 **Live Demo:** [prep-ai-navy-nine.vercel.app](https://prep-ai-navy-nine.vercel.app)
+
+<br/> 
 
 ## 🙋 Author
 
