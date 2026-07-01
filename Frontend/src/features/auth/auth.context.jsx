@@ -12,21 +12,21 @@ export const AuthProvider = ({ children }) => {
         const getAndSetUser = async () => {
             try {
                 const data = await getMe()
-                // ✅ data null/undefined ho toh crash na ho
+                
                 if (data && data.user) {
                     setUser(data.user)
                 }
             } catch (err) {
-                // 401 = not logged in — bilkul normal, koi action nahi
+                
                 setUser(null)
             } finally {
-                // ✅ Loading hamesha false ho — infinite loop nahi
+                // ✅ Loading 
                 setLoading(false)
             }
         }
 
         getAndSetUser()
-    }, []) // ✅ empty dependency — sirf once chalega
+    }, []) // ✅ empty dependency —  once
 
     return (
         <AuthContext.Provider value={{ user, setUser, loading, setLoading }}>

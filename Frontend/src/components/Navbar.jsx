@@ -4,7 +4,7 @@ import { useAuth } from '../features/auth/hookes/useAuth'
 import './navbar.scss'
 
 const Navbar = () => {
-    // ✅ SARE HOOKS PEHLE - koi bhi condition se pehle
+
     const location = useLocation()
     const { user, handleLogout } = useAuth()
     const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -20,8 +20,7 @@ const Navbar = () => {
         document.addEventListener('mousedown', handleClickOutside)
         return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [])
-
-    // ✅ return null SARE hooks ke BAAD
+ 
     const hideOn = ['/login', '/register']
     if (hideOn.includes(location.pathname)) return null
 
