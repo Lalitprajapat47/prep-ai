@@ -7,7 +7,7 @@ const cors = require('cors')
 app.use(cors({
    origin: [
         'http://localhost:5173',
-        'https://prep-ai-frontend.onrender.com'
+        'https://prep-ai-navy-nine.vercel.app'
     ],
     
     credentials:true
