@@ -200,7 +200,8 @@ async function generatePdfFromHtml(htmlContent) {
             '--no-sandbox',
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage',
-            '--disable-gpu'
+            '--disable-gpu',
+            '--single-process'
         ]
     })
     const page = await browser.newPage();
